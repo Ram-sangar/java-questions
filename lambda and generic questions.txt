@@ -1,0 +1,13 @@
+Lambda expression
+1. Write a Java program to implement a lambda expression to find the sum of two integers.
+2. Write a Java program to implement a lambda expression to check if a given string is empty.
+3. Write a Java program to implement a lambda expression to convert a list of strings to uppercase and lowercase.
+4. Write a Java program to implement a lambda expression to filter out even and odd numbers from a list of integers.
+5. Write a Java program to implement a lambda expression to sort a list of strings in alphabetical order.
+
+Generic
+1. Write a Java program to create a generic method that takes two arrays of the same type and checks if they have the same elements in the same order.
+2. Write a Java program to create a generic method that takes a list of numbers and returns the sum of all the even and odd numbers.
+3. Write a Java program to create a generic method that takes a list of any type and a target element. It returns the index of the first occurrence of the target element in the list. Return -1 if the target element cannot be found.
+3. Write a Java program to create a generic method that takes a list of any type and a target element. It returns the index of the first occurrence of the target element in the list. Return -1 if the target element cannot be found.
+5. Write a Java program to create a generic method that takes two lists of the same type and merges them into a single list. This method alternates the elements of each list.

@@ -1,0 +1,35 @@
+Arraylist
+1. Write a Java program to create an array list, add some colors (strings) and print out the collection.
+2. Write a Java program to search for an element in an array list.
+3. Write a Java program to copy one array list into another.
+4. Write a Java program to shuffle elements in an array list.
+
+Linkedlist
+1. Write a Java program to append the specified element to the end of a hash set.
+2. Write a Java program to iterate through all elements in a hash list.
+3. Write a Java program to get the number of elements in a hash set.
+4. Write a Java program to empty an hash set.
+
+Hashset
+1. Write a Java program to append the specified element to the end of a hash set.
+2. Write a Java program to iterate through all elements in a hash list.
+3. Write a Java program to get the number of elements in a hash set.
+4. Write a Java program to empty an hash set.
+
+Treeset
+1. Write a Java program to iterate through all elements in a tree set.
+2. Write a Java program to add all the elements of a specified tree set to another tree set.
+3. Write a Java program to retrieve and remove the last element of a tree set.
+4. Write a Java program to remove a given element from a tree set.
+
+Hashmap
+1. Write a Java program to count the number of key-value (size) mappings in a map.
+2. Write a Java program to copy all mappings from the specified map to another map.
+3. Write a Java program to get a set view of the keys contained in this map.
+4. Write a Java program to get a collection view of the values contained in this map.
+
+Linkedhashmap
+1. Create a LinkedHashMap in Java.
+2. How to Removing and Traversing elements.
+3. How to Iterating over the entries in reverse order.
+4. How to remove the oldest entry.

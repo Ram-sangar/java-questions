@@ -1,0 +1,57 @@
+linked list
+
+1.Write a Java program to iterate a linked list in reverse order?
+
+import java.util.LinkedList;
+import java.util.Iterator;
+public class Iterate_Reverse
+{
+	public static void main(String[] args)
+	{
+		LinkedList<String> book_list = new LinkedList<String>();
+		book_list.add("Java");
+		book_list.add("C");
+		book_list.add("Cpp");
+		book_list.add("Python");
+		book_list.add("Php");
+		book_list.add("Css");
+		book_list.add("Html");
+		book_list.add("MySql");
+		System.out.println("linked list:" + book_list);
+		Iterator it = book_list.descendingIterator();
+		System.out.println("Reverse Order:");
+		while (it.hasNext())
+		{
+			System.out.println(it.next());
+		}
+	}
+}
+
+2.Write a Java program to compare two linked lists?
+
+import java.util.*;
+public class Compare_TwoList
+{
+	public static void main(String[] args)
+	{
+		LinkedList<String> b1_list = new LinkedList<String>();
+		b1_list.add("Java");
+		b1_list.add("C");
+		b1_list.add("Cpp");
+		b1_list.add("Python");
+		b1_list.add("Php");
+		System.out.println(b1_list);   
+		LinkedList<String> b2_list = new LinkedList<String>();
+		b2_list.add("Cpp");
+		b2_list.add("Html");
+		b2_list.add("Php");
+		b2_list.add("MySql");
+		System.out.println(b2_list);  
+		LinkedList<String> b3_list = new LinkedList<String>();
+		for (String e : b1_list)
+		{
+			b3_list.add(b2_list.contains(e) ? "Yes" : "No");
+		}
+		System.out.println(b3_list);         
+	}
+}

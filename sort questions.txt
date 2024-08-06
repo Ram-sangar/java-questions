@@ -1,0 +1,13 @@
+1. Quick sort algorithm.
+2. Bubble Sorting Algorithm.
+3. Radix sort algorithm.
+4. Merge Sort Algorithm.
+5. Heap sort algorithm.
+6. Selection Sort Algorithm.
+7. Insertion sort algorithm.
+8. Bead Sort Algorithm.
+9. BogoSort Sort Algorithm.
+10. Cocktail sort algorithm.
+11. CombSort algorithm.
+12. CountingSort algorithm.
+13. Pancake sort algorithm.

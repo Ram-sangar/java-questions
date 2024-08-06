@@ -1,0 +1,6 @@
+Array task questions
+
+1.Find the minimum and maximum element in an array.
+2.Write a program to reverse the array.
+3.Write a program to sort the given array.
+4.Find the occurrence of an integer in the array.

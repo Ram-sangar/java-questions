@@ -1,0 +1,16 @@
+Java if statements
+
+1.find maximum between two numbers.
+2.check a number is positive or negative.
+3.check a number is even or odd.
+4.check the range of a number.
+5.check whether a number is divisible by 5 and 11 or not.
+6.check whether a year is leap year or not.
+
+Switch case
+
+1. print day of week name using switch case.
+2.check whether an alphabet is vowel or consonant using switch case.
+3.find maximum between two numbers using switch case.
+4. create Simple Calculator using switch case.
+
