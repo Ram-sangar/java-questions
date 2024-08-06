@@ -1,0 +1,150 @@
+String answers
+
+1.
+public class StringReverse {
+    public static String reverseString(String str) {
+        StringBuilder reversed = new StringBuilder();
+        for (int i = str.length() - 1; i >= 0; i--) {
+            reversed.append(str.charAt(i));
+        }
+        return reversed.toString();
+    }
+
+    public static void main(String[] args) {
+        String input = "Hello";
+        String reversedString = reverseString(input);
+        System.out.println("Reversed String: " + reversedString);
+    }
+}
+
+2.
+
+import java.util.Arrays;
+
+public class AnagramCheck {
+    public static boolean areAnagrams(String str1, String str2) {
+        char[] charArray1 = str1.toCharArray();
+        char[] charArray2 = str2.toCharArray();
+
+        Arrays.sort(charArray1);
+        Arrays.sort(charArray2);
+
+        return Arrays.equals(charArray1, charArray2);
+    }
+
+    public static void main(String[] args) {
+        String str1 = "listen";
+        String str2 = "silent";
+
+        boolean result = areAnagrams(str1, str2);
+
+        System.out.println("Are Anagrams: " + result);
+    }
+}
+
+3.
+
+public class CharacterCount {
+    public static int countOccurrences(String str, char target) {
+        int count = 0;
+        for (char ch : str.toCharArray()) {
+            if (ch == target) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        String input = "programming";
+        char targetChar = 'g';
+
+        int occurrences = countOccurrences(input, targetChar);
+
+        System.out.println("Occurrences of '" + targetChar + "': " + occurrences);
+    }
+}
+
+4.
+
+public class PalindromeCheck {
+    public static boolean isPalindrome(String str) {
+        StringBuilder reversed = new StringBuilder(str).reverse();
+        return str.equals(reversed.toString());
+    }
+
+    public static void main(String[] args) {
+        String palindromeStr = "level";
+        boolean isPalindrome = isPalindrome(palindromeStr);
+
+        System.out.println("Is Palindrome: " + isPalindrome);
+    }
+}
+
+
+5.public class StringCompression {
+    public static String compressString(String str) {
+        StringBuilder compressed = new StringBuilder();
+        int count = 1;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (i < str.length() - 1 && str.charAt(i) == str.charAt(i + 1)) {
+                count++;
+            } else {
+                compressed.append(str.charAt(i)).append(count);
+                count = 1;
+            }
+        }
+
+        return compressed.length() < str.length() ? compressed.toString() : str;
+    }
+
+    public static void main(String[] args) {
+        String input = "aabcccccaaa";
+        String compressedString = compressString(input);
+
+        System.out.println("Compressed String: " + compressedString);
+    }
+}
+
+
+6.
+
+public class StringBuilderProblem {
+    public static void main(String[] args) {
+        StringBuilder stringBuilder = new StringBuilder("Hello");
+
+        // Append " World"
+        stringBuilder.append(" World");
+
+        // Insert comma at the 6th position
+        stringBuilder.insert(5, ",");
+
+        // Delete the substring " World"
+        stringBuilder.delete(6, 11);
+
+        // Display the result
+        System.out.println("StringBuilder Example: " + stringBuilder.toString());
+    }
+}
+
+
+7.
+public class StringBufferProblem {
+    public static void main(String[] args) {
+        StringBuffer stringBuffer = new StringBuffer("Hello");
+
+        // Append " World"
+        stringBuffer.append(" World");
+
+        // Insert comma at the 6th position
+        stringBuffer.insert(5, ",");
+
+        // Delete the substring " World"
+        stringBuffer.delete(6, 11);
+
+        // Display the result
+        System.out.println("StringBuffer Example: " + stringBuffer.toString());
+    }
+}
+

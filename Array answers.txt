@@ -1,0 +1,83 @@
+Array answers
+
+1.Find the minimum and maximum element in an array.
+
+public class MinMaxArray {
+    public static void main(String[] args) {
+        int[] array = {5, 2, 8, 1, 6};
+        int min = array[0];
+        int max = array[0];
+
+        for (int num : array) {
+            if (num < min) {
+                min = num;
+            }
+            if (num > max) {
+                max = num;
+            }
+        }
+
+        System.out.println("Minimum element: " + min);
+        System.out.println("Maximum element: " + max);
+    }
+}
+
+2.Write a program to reverse the array.
+
+public class ReverseArray {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5};
+        int length = array.length;
+
+        for (int i = 0; i < length / 2; i++) {
+            int temp = array[i];
+            array[i] = array[length - i - 1];
+            array[length - i - 1] = temp;
+        }
+
+        System.out.println("Reversed array:");
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+3.Write a program to sort the given array.
+
+class SortedArray {
+    public static void main(String[] args) {
+        int[] arr = {9,8,7,6,5,4,3,2,1,0};
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        
+        for(int i=0;i<arr.length;i++){
+            System.out.println(arr[i]);
+        }      
+    }
+}
+
+4.Find the occurrence of an integer in the array.
+
+public class OccurrenceInArray {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 2, 4, 2, 5};
+        int target = 2;
+        int count = 0;
+
+        for (int num : array) {
+            if (num == target) {
+                count++;
+            }
+        }
+
+        System.out.println("Occurrences of " + target + ": " + count);
+    }
+}

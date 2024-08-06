@@ -1,0 +1,423 @@
+Class answers
+
+1.
+public class Vehicle {
+    void start() {
+        System.out.println("Vehicle started.");
+    }
+
+    void accelerate() {
+        System.out.println("Vehicle accelerating.");
+    }
+
+    void brake() {
+        System.out.println("Vehicle braking.");
+    }
+
+    void stop() {
+        System.out.println("Vehicle stopped.");
+    }
+}
+
+
+2.
+
+public class Vehicle {
+    String make;
+    int year;
+
+    void displayInfo() {
+        System.out.println("Make: " + make);
+        System.out.println("Year: " + year);
+    }
+
+    // Other methods...
+}
+
+3.
+
+public class Calculator {
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int subtract(int a, int b) {
+        return a - b;
+    }
+
+    int multiply(int a, int b) {
+        return a * b;
+    }
+
+    double divide(double a, double b) {
+        if (b != 0) {
+            return a / b;
+        } else {
+            System.out.println("Cannot divide by zero.");
+            return Double.NaN;
+        }
+    }
+}
+
+
+4.
+
+public class Vehicle {
+    // ...
+
+    boolean isEqual(Vehicle otherVehicle) {
+        return this.make.equals(otherVehicle.make) && this.year == otherVehicle.year;
+    }
+}
+
+5.
+
+public class Vehicle {
+    String make;
+    int year;
+
+    // Default constructor
+    public Vehicle() {
+        make = "Unknown";
+        year = 0;
+    }
+
+    // Parameterized constructor
+    public Vehicle(String make, int year) {
+        this.make = make;
+        this.year = year;
+    }
+
+    // Other methods...
+}
+
+
+6.
+
+public interface Vehicle {
+    void start();
+    void accelerate();
+    void brake();
+    void stop();
+}
+
+
+7.
+
+public abstract class AbstractVehicle {
+    String make;
+
+    public AbstractVehicle(String make) {
+        this.make = make;
+    }
+
+    abstract void start();
+
+    abstract void stop();
+}
+
+
+8.
+
+public class Vehicle {
+    private String make;
+    private int year;
+
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+}
+
+9.
+
+public class Vehicle {
+    String make;
+    int year;
+
+    public Vehicle() {
+        make = "Unknown";
+        year = 0;
+    }
+
+    public Vehicle(String make) {
+        this.make = make;
+        year = 0;
+    }
+
+    public Vehicle(String make, int year) {
+        this.make = make;
+        this.year = year;
+    }
+}
+
+
+10.
+
+public class StaticExample {
+    static int staticVariable = 0;
+    int instanceVariable = 0;
+
+    static void staticMethod() {
+        System.out.println("Static method called.");
+    }
+
+    void instanceMethod() {
+        System.out.println("Instance method called.");
+    }
+}
+
+11.
+
+class Vehicle {
+    String make;
+    int year;
+
+    public Vehicle(String make, int year) {
+        this.make = make;
+        this.year = year;
+    }
+
+    // Method Overloading
+    void displayInfo() {
+        System.out.println("Make: " + make);
+        System.out.println("Year: " + year);
+    }
+
+    void displayInfo(String owner) {
+        System.out.println("Make: " + make);
+        System.out.println("Year: " + year);
+        System.out.println("Owner: " + owner);
+    }
+
+    // Method Overriding
+    void start() {
+        System.out.println("Vehicle started.");
+    }
+
+    void stop() {
+        System.out.println("Vehicle stopped.");
+    }
+
+    // Other methods...
+}
+
+class Car extends Vehicle {
+    boolean convertible;
+
+    public Car(String make, int year, boolean convertible) {
+        super(make, year);
+        this.convertible = convertible;
+    }
+
+    // Method Overriding
+    @Override
+    void start() {
+        System.out.println("Car engine started.");
+    }
+
+    @Override
+    void stop() {
+        System.out.println("Car engine stopped.");
+    }
+
+    // Other methods...
+}
+
+public class VehicleDemo {
+    public static void main(String[] args) {
+        Vehicle vehicle = new Vehicle("Toyota", 2022);
+        vehicle.displayInfo();
+        System.out.println("--------");
+
+        // Method Overloading
+        vehicle.displayInfo("John Doe");
+        System.out.println("--------");
+
+        Car car = new Car("BMW", 2023, true);
+        // Method Overriding
+        car.start();
+        car.stop();
+    }
+}
+
+
+12.
+
+public class Calculator {
+
+    // Inner class for operations
+    public class Operations {
+        
+        public int add(int a, int b) {
+            return a + b;
+        }
+
+        public int subtract(int a, int b) {
+            return a - b;
+        }
+
+        public int multiply(int a, int b) {
+            return a * b;
+        }
+
+        public double divide(double a, double b) {
+            if (b != 0) {
+                return a / b;
+            } else {
+                System.out.println("Cannot divide by zero.");
+                return Double.NaN;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Calculator calculator = new Calculator();
+        Operations operations = calculator.new Operations();
+
+        // Example usage
+        int sum = operations.add(5, 3);
+        System.out.println("Sum: " + sum);
+
+        int difference = operations.subtract(10, 4);
+        System.out.println("Difference: " + difference);
+
+        int product = operations.multiply(6, 7);
+        System.out.println("Product: " + product);
+
+        double quotient = operations.divide(20.0, 4.0);
+        System.out.println("Quotient: " + quotient);
+    }
+}
+
+
+13.
+
+public class Student {
+    // Private attributes
+    private String name;
+    private int age;
+    private double grade;
+
+    // Constructor
+    public Student(String name, int age, double grade) {
+        this.name = name;
+        this.age = age;
+        this.grade = grade;
+    }
+
+    // Getter methods
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getGrade() {
+        return grade;
+    }
+
+    // Setter methods
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
+}
+
+14.
+
+public class AstaticClass {
+
+    public static final String className= "AstaticClass";
+
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static double multiply(double x, double y) {
+        return x * y;
+    }
+
+    public static class Helper {
+        public static String getGreeting() {
+            return "Hello from MathUtils.Helper!";
+        }
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println("Currnet class name is "+ AstaticClass.classname);
+
+        int sum =  AstaticClass.add(5, 3);
+        System.out.println("Sum: " + sum);
+
+        double product =  AstaticClass.multiply(2.5, 4.0);
+        System.out.println("Product: " + product);
+
+        System.out.println( AstaticClass.Helper.getGreeting());
+    }
+}
+
+
+15.
+
+public class Fruits {
+    // Enum declaration
+    public enum Fruit {
+        APPLE("Red"),
+        BANANA("Yellow"),
+        ORANGE("Orange"),
+        GRAPE("Purple"),
+        MANGO("Yellow-Orange");
+
+        // Enum constructor
+        private final String color;
+
+        Fruit(String color) {
+            this.color = color;
+        }
+
+        // Getter method for color
+        public String getColor() {
+            return color;
+        }
+    }
+
+    // Example usage in a main method
+    public static void main(String[] args) {
+        // Accessing enum constants
+        Fruit apple = Fruit.APPLE;
+        Fruit banana = Fruit.BANANA;
+
+        // Displaying information about fruits
+        System.out.println("Apple is " + apple.getColor());
+        System.out.println("Banana is " + banana.getColor());
+
+        // Iterating through all enum constants
+        System.out.println("All fruits:");
+        for (Fruit fruit : Fruit.values()) {
+            System.out.println(fruit + " is " + fruit.getColor());
+        }
+    }
+}
+

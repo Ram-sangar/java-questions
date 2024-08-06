@@ -1,0 +1,410 @@
+1. Write a Java program to create and start multiple threads that increment a shared counter variable concurrently.
+
+//Counter.java
+public class Counter {
+  private int count = 0;
+
+  public synchronized void increment() {
+    count++;
+  }
+  public int getCount() {
+    return count;
+  }
+}
+//Main.java
+public class Main {
+  public static void main(String[] args) {
+    Counter counter = new Counter();
+    int numThreads = 6;
+    int incrementsPerThread = 10000;
+    IncrementThread[] threads = new IncrementThread[numThreads];
+
+    // Create and start the threads
+    for (int i = 0; i < numThreads; i++) {
+      threads[i] = new IncrementThread(counter, incrementsPerThread);
+      threads[i].start();
+    }
+
+    // Wait for all threads to finish
+    try {
+      for (IncrementThread thread: threads) {
+        thread.join();
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    // Print the final count
+    System.out.println("Final count: " + counter.getCount());
+  }
+}
+
+2. Write a Java program to create a producer-consumer scenario using the wait() and notify() methods for thread synchronization.
+// ProducerConsumer.java
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class ProducerConsumer {
+  private static final int BUFFER_SIZE = 5;
+  private static final Queue < Integer > buffer = new LinkedList < > ();
+
+  public static void main(String[] args) {
+    Thread producerThread = new Thread(new Producer());
+    Thread consumerThread = new Thread(new Consumer());
+
+    producerThread.start();
+    consumerThread.start();
+  }
+
+  static class Producer implements Runnable {
+    public void run() {
+      int value = 0;
+      while (true) {
+        synchronized(buffer) {
+          // Wait if the buffer is full
+          while (buffer.size() == BUFFER_SIZE) {
+            try {
+              buffer.wait();
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
+
+          System.out.println("Producer produced: " + value);
+          buffer.add(value++);
+
+          // Notify the consumer that an item is produced
+          buffer.notify();
+
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+  }
+
+  static class Consumer implements Runnable {
+    public void run() {
+      while (true) {
+        synchronized(buffer) {
+          // Wait if the buffer is empty
+          while (buffer.isEmpty()) {
+            try {
+              buffer.wait();
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
+
+          int value = buffer.poll();
+          System.out.println("Consumer consumed: " + value);
+
+          // Notify the producer that an item is consumed
+          buffer.notify();
+
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+  }
+}
+
+3. Write a Java program that uses the ReentrantLock class to synchronize access to a shared resource among multiple threads.
+// SharedResourceExercise.java
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class SharedResourceExercise {
+  private static final int NUM_THREADS = 3;
+  private static final int NUM_ITERATIONS = 5;
+
+  public static void main(String[] args) {
+    Lock lock = new ReentrantLock();
+    SharedResource sharedResource = new SharedResource();
+
+    Thread[] threads = new Thread[NUM_THREADS];
+    for (int i = 0; i < NUM_THREADS; i++) {
+      threads[i] = new Thread(new Worker(lock, sharedResource));
+      threads[i].start();
+    }
+
+    try {
+      for (Thread thread: threads) {
+        thread.join();
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  static class Worker implements Runnable {
+    private Lock lock;
+    private SharedResource sharedResource;
+
+    public Worker(Lock lock, SharedResource sharedResource) {
+      this.lock = lock;
+      this.sharedResource = sharedResource;
+    }
+
+    public void run() {
+      for (int i = 0; i < NUM_ITERATIONS; i++) {
+        lock.lock();
+        try {
+          sharedResource.doWork();
+        } finally {
+          lock.unlock();
+        }
+      }
+    }
+  }
+
+  static class SharedResource {
+    public void doWork() {
+      String threadName = Thread.currentThread().getName();
+      System.out.println("Thread-> " + threadName + " is performing work.");
+      // Perform work on the shared resource
+    }
+  }
+}
+
+4. Write a Java program to demonstrate Semaphore usage for thread synchronization.
+//SemaphoreExercise.java
+import java.util.concurrent.Semaphore;
+
+public class SemaphoreExercise {
+  private static final int NUM_THREADS = 5;
+  private static final int NUM_PERMITS = 2;
+
+  public static void main(String[] args) {
+    Semaphore semaphore = new Semaphore(NUM_PERMITS);
+
+    Thread[] threads = new Thread[NUM_THREADS];
+    for (int i = 0; i < NUM_THREADS; i++) {
+      threads[i] = new Thread(new Worker(semaphore));
+      threads[i].start();
+    }
+
+    try {
+      for (Thread thread: threads) {
+        thread.join();
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  static class Worker implements Runnable {
+    private Semaphore semaphore;
+
+    public Worker(Semaphore semaphore) {
+      this.semaphore = semaphore;
+    }
+
+    public void run() {
+      try {
+        semaphore.acquire();
+
+        // Perform work that requires the semaphore
+        System.out.println("Thread " + Thread.currentThread().getName() + " acquired the semaphore.");
+        Thread.sleep(2000); // Simulating work
+        System.out.println("Thread " + Thread.currentThread().getName() + " released the semaphore.");
+
+        semaphore.release();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
+
+5. Write a Java program to showcase the usage of the CyclicBarrier class for thread synchronization.
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+
+public class CyclicBarrierExercise {
+  private static final int NUM_THREADS = 3;
+  private static final CyclicBarrier barrier = new CyclicBarrier(NUM_THREADS, new BarrierAction());
+
+  public static void main(String[] args) {
+    Thread[] threads = new Thread[NUM_THREADS];
+    for (int i = 0; i < NUM_THREADS; i++) {
+      threads[i] = new Thread(new Worker());
+      threads[i].start();
+    }
+
+    try {
+      for (Thread thread: threads) {
+        thread.join();
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  static class Worker implements Runnable {
+    public void run() {
+      try {
+        System.out.println("Thread " + Thread.currentThread().getName() + " is waiting at the barrier.");
+        barrier.await();
+
+        // Perform work after reaching the barrier
+
+        System.out.println("Thread " + Thread.currentThread().getName() + " has crossed the barrier and continued execution.");
+      } catch (InterruptedException | BrokenBarrierException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  static class BarrierAction implements Runnable {
+    public void run() {
+      System.out.println("Barrier reached! All threads have arrived at the barrier.");
+    }
+  }
+}
+
+6. Write a Java program that uses the CountDownLatch class to synchronize the start and finish of multiple threads.
+import java.util.concurrent.CountDownLatch;
+
+public class CountDownLatchExercise {
+  private static final int NUM_THREADS = 3;
+  private static final CountDownLatch startLatch = new CountDownLatch(1);
+  private static final CountDownLatch finishLatch = new CountDownLatch(NUM_THREADS);
+
+  public static void main(String[] args) {
+    Thread[] threads = new Thread[NUM_THREADS];
+    for (int i = 0; i < NUM_THREADS; i++) {
+      threads[i] = new Thread(new Worker());
+      threads[i].start();
+    }
+
+    // Allow threads to start simultaneously
+    startLatch.countDown();
+
+    try {
+      finishLatch.await();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    System.out.println("All threads have finished their work.");
+  }
+
+  static class Worker implements Runnable {
+    public void run() {
+      try {
+        startLatch.await();
+
+        // Perform work
+
+        System.out.println("Thread " + Thread.currentThread().getName() + " has finished its work.");
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } finally {
+        finishLatch.countDown();
+      }
+    }
+  }
+}
+
+7. Write a Java program to illustrate the usage of the ReadWriteLock interface for concurrent read-write access to a shared resource.
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+public class ReadWriteLockExercise {
+  private static final int NUM_READERS = 3;
+  private static final int NUM_WRITERS = 2;
+
+  public static void main(String[] args) {
+    ReadWriteLock lock = new ReentrantReadWriteLock();
+    SharedResource sharedResource = new SharedResource();
+
+    // Create and start the reader threads
+    for (int i = 0; i < NUM_READERS; i++) {
+      Thread readerThread = new Thread(new Reader(lock, sharedResource));
+      readerThread.start();
+    }
+
+    // Create and start the writer threads
+    for (int i = 0; i < NUM_WRITERS; i++) {
+      Thread writerThread = new Thread(new Writer(lock, sharedResource));
+      writerThread.start();
+    }
+  }
+
+  static class Reader implements Runnable {
+    private ReadWriteLock lock;
+    private SharedResource sharedResource;
+
+    public Reader(ReadWriteLock lock, SharedResource sharedResource) {
+      this.lock = lock;
+      this.sharedResource = sharedResource;
+    }
+
+    public void run() {
+      while (true) {
+        lock.readLock().lock();
+
+        // Read from the shared resource
+        System.out.println("Reader " + Thread.currentThread().getName() + " reads: " + sharedResource.read());
+
+        lock.readLock().unlock();
+
+        // Delay between consecutive reads
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  static class Writer implements Runnable {
+    private ReadWriteLock lock;
+    private SharedResource sharedResource;
+    private int counter = 0;
+
+    public Writer(ReadWriteLock lock, SharedResource sharedResource) {
+      this.lock = lock;
+      this.sharedResource = sharedResource;
+    }
+
+    public void run() {
+      while (true) {
+        lock.writeLock().lock();
+
+        // Write to the shared resource
+        sharedResource.write("Writer " + Thread.currentThread().getName() + " writes: " + counter++);
+
+        lock.writeLock().unlock();
+
+        // Delay between consecutive writes
+        try {
+          Thread.sleep(2000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  static class SharedResource {
+    private String data;
+
+    public String read() {
+      return data;
+    }
+
+    public void write(String data) {
+      this.data = data;
+    }
+  }
+}

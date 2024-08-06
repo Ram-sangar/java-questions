@@ -1,0 +1,722 @@
+1. Quick sort algorithm.
+import java.util.Arrays;
+public class QuickSort {
+     
+    private int temp_array[];
+    private int len;
+ 
+    public void sort(int[] nums) {
+         
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+        this.temp_array = nums;
+        len = nums.length;
+        quickSort(0, len - 1);
+    }
+     private void quickSort(int low_index, int high_index) {
+         
+        int i = low_index;
+        int j = high_index;
+        // calculate pivot number 
+        int pivot = temp_array[low_index+(high_index-low_index)/2];
+        // Divide into two arrays
+        while (i <= j) {
+               while (temp_array[i] < pivot) {
+                i++;
+            }
+            while (temp_array[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                exchangeNumbers(i, j);
+                //move index to next position on both sides
+                i++;
+                j--;
+            }
+        }
+        // call quickSort() method recursively
+        if (low_index < j)
+            quickSort(low_index, j);
+        if (i < high_index)
+            quickSort(i, high_index);
+    }
+ 
+    private void exchangeNumbers(int i, int j) {
+        int temp = temp_array[i];
+        temp_array[i] = temp_array[j];
+        temp_array[j] = temp;
+    }
+     
+     // Method to test above
+    public static void main(String args[])
+    {
+        QuickSort ob = new QuickSort();
+        int nums[] = {7, -5, 3, 2, 1, 0, 45};
+        System.out.println("Original Array:");
+        System.out.println(Arrays.toString(nums));
+        ob.sort(nums);
+        System.out.println("Sorted Array");
+        System.out.println(Arrays.toString(nums));
+    }
+}
+
+2. Bubble Sorting Algorithm.
+import java.util.Arrays;
+class BubbleSort
+{
+    void bubbleSort(int nums[])
+    {
+        int n = nums.length;
+        for (int i = 0; i < n-1; i++)
+            for (int j = 0; j < n-i-1; j++)
+                if (nums[j] > nums[j+1])
+                {
+                    // swap temp and nums[i]
+                    int temp = nums[j];
+                    nums[j] = nums[j+1];
+                    nums[j+1] = temp;
+                }
+    }
+ 
+    // Method to test above
+    public static void main(String args[])
+    {
+        BubbleSort ob = new BubbleSort();
+        int nums[] = {7, -5, 3, 2, 1, 0, 45};
+        System.out.println("Original Array:");
+        System.out.println(Arrays.toString(nums));
+        ob.bubbleSort(nums);
+        System.out.println("Sorted Array");
+        System.out.println(Arrays.toString(nums));
+    }
+}
+
+3. Radix sort algorithm.
+import java.util.Arrays;
+public class RadixSort {
+    public static void sort(int[] array) {
+        RadixSort.sort(array, 10);
+    }
+
+    public static void sort(int[] array, int radix) {
+        if (array.length == 0) {
+            return;
+        }
+
+        // Determine minimum and maximum values
+        int minValue = array[0];
+        int maxValue = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < minValue) {
+                minValue = array[i];
+            } else if (array[i] > maxValue) {
+                maxValue = array[i];
+            }
+        }
+
+        // Perform counting sort on each exponent/digit, starting at the least
+        // significant digit
+        int exponent = 1;
+        while ((maxValue - minValue) / exponent >= 1) {
+            RadixSort.countingSortByDigit(array, radix, exponent, minValue);
+            exponent *= radix;
+        }
+    }
+
+    private static void countingSortByDigit(
+            int[] array, int radix, int exponent, int minValue) {
+        int bucketIndex;
+        int[] buckets = new int[radix];
+        int[] output = new int[array.length];
+
+        // Initialize bucket
+        for (int i = 0; i < radix; i++) {
+            buckets[i] = 0;
+        }
+
+        // Count frequencies
+        for (int i = 0; i < array.length; i++) {
+            bucketIndex = (int)(((array[i] - minValue) / exponent) % radix);
+            buckets[bucketIndex]++;
+        }
+
+        // Compute cumulates
+        for (int i = 1; i < radix; i++) {
+            buckets[i] += buckets[i - 1];
+        }
+
+        // Move records
+        for (int i = array.length - 1; i >= 0; i--) {
+            bucketIndex = (int)(((array[i] - minValue) / exponent) % radix);
+            output[--buckets[bucketIndex]] = array[i];
+        }
+
+        // Copy back
+        for (int i = 0; i < array.length; i++) {
+            array[i] = output[i];
+        }
+    }
+	// Method to test above
+    public static void main(String args[])
+    {
+        RadixSort ob = new RadixSort();
+        int nums[] = {7, -5, 3, 2, 1, 0, 45};
+        System.out.println("Original Array:");
+        System.out.println(Arrays.toString(nums));
+        ob.sort(nums);
+         System.out.println("Sorted Array:");
+        System.out.println(Arrays.toString(nums));
+        }        
+}
+
+4. Merge Sort Algorithm.
+import java.util.Arrays;  
+class MergeSort
+{
+    void merge(int nums[], int left, int m, int right)
+    {
+        int n1 = m - left + 1;
+        int n2 = right - m;
+ 
+        int Left_part_arra[] = new int [n1];
+        int Right_part_arra[] = new int [n2];
+ 
+        for (int i=0; i<n1; ++i)
+            Left_part_arra[i] = nums[left + i];
+        for (int j=0; j<n2; ++j)
+            Right_part_arra[j] = nums[m + 1+ j];
+
+        int i = 0, j = 0;
+ 
+        int k = left;
+        while (i < n1 && j < n2)
+        {
+            if (Left_part_arra[i] <= Right_part_arra[j])
+            {
+                nums[k] = Left_part_arra[i];
+                i++;
+            }
+            else
+            {
+                nums[k] = Right_part_arra[j];
+                j++;
+            }
+            k++;
+        }
+ 
+        while (i < n1)
+        {
+            nums[k] = Left_part_arra[i];
+            i++;
+            k++;
+        }
+ 
+        while (j < n2)
+        {
+            nums[k] = Right_part_arra[j];
+            j++;
+            k++;
+        }
+    }
+ 
+    // merge()
+    void sort(int nums[], int left, int right)
+    {
+        if (left < right)
+        {
+            // Find the middle point
+            int m = (left+right)/2;
+ 
+            // Sort first halve
+            sort(nums, left, m);
+			// Sort second halve
+            sort(nums , m+1, right);
+ 
+            // Merge the sorted halves
+            merge(nums, left, m, right);
+        }
+    }
+ 
+	// Method to test above
+    public static void main(String args[])
+    {
+        MergeSort ob = new MergeSort();
+        int nums[] = {7, -5, 3, 2, 1, 0, 45};
+        System.out.println("Original Array:");
+        System.out.println(Arrays.toString(nums));
+        ob.sort(nums, 0, nums.length-1);
+         System.out.println("Sorted Array:");
+        System.out.println(Arrays.toString(nums));
+        }    
+    
+}
+
+5. Heap sort algorithm.
+public class HeapSort
+{
+public static void heapSort(int[] a){
+	int count = a.length;
+	//first place a in max-heap order
+	heapify(a, count);
+	int end = count - 1;
+	while(end > 0){
+		//swap the root(maximum value) of the heap with the
+		//last element of the heap
+		int tmp = a[end];
+		a[end] = a[0];
+		a[0] = tmp;
+		//put the heap back in max-heap order
+		siftDown(a, 0, end - 1);
+		//decrement the size of the heap so that the previous
+		//max value will stay in its proper place
+		end--;
+	}
+}
+public static void heapify(int[] a, int count){
+	//start is assigned the index in a of the last parent node
+	int start = (count - 2) / 2; //binary heap
+	while(start >= 0){
+		//sift down the node at index start to the proper place
+		//such that all nodes below the start index are in heap
+		//order
+		siftDown(a, start, count - 1);
+		start--;
+	}
+	//after sifting down the root all nodes/elements are in heap order
+}
+public static void siftDown(int[] a, int start, int end){
+	//end represents the limit of how far down the heap to sift
+	int root = start;
+	while((root * 2 + 1) <= end){      //While the root has at least one child
+		int child = root * 2 + 1;           //root*2+1 points to the left child
+		//if the child has a sibling and the child's value is less than its sibling's...
+		if(child + 1 <= end && a[child] < a[child + 1])
+			child = child + 1;           //... then point to the right child instead
+		if(a[root] < a[child]){     //out of max-heap order
+			int tmp = a[root];
+			a[root] = a[child];
+			a[child] = tmp;
+			root = child;                //repeat to continue sifting down the child now
+		}else
+			return;
+	}
+}
+// Driver program
+	public static void main(String args[])
+	{
+		int arr[] = {7, -5, 3, 2, 1, 0, 45};
+		int n = arr.length;
+		HeapSort ob = new HeapSort();
+		ob.heapSort(arr);
+		System.out.println("Sorted array:");
+		 for (int element: arr) {
+            System.out.print(" "+element);
+        }
+	}
+}
+
+6. Selection Sort Algorithm.
+import  java.util.Arrays;
+  public class  SelectionSort {
+  public static void sort(int[] nums)
+  {
+  for(int currentPlace = 0;currentPlace<nums.length-1;currentPlace++){
+  int smallest =  Integer.MAX_VALUE;
+  int smallestAt =  currentPlace+1;
+  for(int check =  currentPlace; check<nums.length;check++){
+  if(nums[check]<smallest){
+  smallestAt  = check;
+  smallest  = nums[check];
+  }
+  }
+  int temp =  nums[currentPlace];
+  nums[currentPlace]  = nums[smallestAt];
+  nums[smallestAt]  = temp;
+  }
+  }
+  // Method to test above
+  public static void main(String args[])
+  {
+  SelectionSort ob = new SelectionSort();
+  int nums[] = {7, -5, 3, 2, 1, 0, 45};
+  System.out.println("Original  Array:");
+  System.out.println(Arrays.toString(nums));
+  ob.sort(nums);
+  System.out.println("Sorted  Array:");
+  System.out.println(Arrays.toString(nums));
+  }        
+  }
+  
+7. Insertion sort algorithm.
+import java.util.Arrays;
+
+public class InsertionSort {
+  void InsertionSort(int[] nums){
+  for(int i = 1; i < nums.length; i++){
+    int value = nums[i];
+    int j = i - 1;
+    while(j >= 0 && nums[j] > value){
+      nums[j + 1] = nums[j];
+      j = j - 1;
+    }
+    nums[j + 1] = value;
+  }
+}
+    
+	// Method to test above
+    public static void main(String args[])
+    {
+        InsertionSort ob = new InsertionSort();
+        int nums[] = {7, -5, 3, 2, 1, 0, 45};
+        System.out.println("Original Array:");
+        System.out.println(Arrays.toString(nums));
+        ob.InsertionSort(nums);
+        System.out.println("Sorted Array");
+        System.out.println(Arrays.toString(nums));
+    }
+}
+
+8. Bead Sort Algorithm.
+public class BeadSort 
+{
+	public static void main(String[] args)
+	{
+		BeadSort now=new BeadSort();
+		int[] arr=new int[(int)(Math.random()*11)+5];
+		for(int i=0;i<arr.length;i++)
+			arr[i]=(int)(Math.random()*10);
+		System.out.print("Unsorted: ");
+		now.display1D(arr);
+ 
+		int[] sort=now.beadSort(arr);
+		System.out.print("Sorted: ");
+		now.display1D(sort);
+	}
+	int[] beadSort(int[] arr)
+	{
+		int max=0;
+		for(int i=0;i<arr.length;i++)
+			if(arr[i]>max)
+				max=arr[i];
+ 
+		//Set up abacus
+		char[][] grid=new char[arr.length][max];
+		int[] levelcount=new int[max];
+		for(int i=0;i<max;i++)
+		{
+			levelcount[i]=0;
+			for(int j=0;j<arr.length;j++)
+				grid[j][i]='_';
+		}
+		/*
+		display1D(arr);
+		display1D(levelcount);
+		display2D(grid);
+		*/
+ 
+		//Drop the beads
+	
+		for(int i=0;i<arr.length;i++)
+		{
+			int num=arr[i];
+			for(int j=0;num>0;j++)
+			{
+				grid[levelcount[j]++][j]='*';
+				num--;
+			}
+			
+		}
+		
+		System.out.println();
+		display2D(grid);
+		//Count the beads
+		int[] sorted=new int[arr.length];
+		for(int i=0;i<arr.length;i++)
+		{
+			int putt=0;
+			for(int j=0;j<max&&grid[arr.length-1-i][j]=='*';j++)
+				putt++;
+			sorted[i]=putt;
+		}
+ 
+		return sorted;
+	}
+	void display1D(int[] arr)
+	{
+		for(int i=0;i<arr.length;i++)
+			System.out.print(arr[i]+" ");
+		System.out.println();
+	}
+	void display1D(char[] arr)
+	{
+		for(int i=0;i<arr.length;i++)
+			System.out.print(arr[i]+" ");
+		System.out.println();
+	}
+	void display2D(char[][] arr)
+	{
+		for(int i=0;i<arr.length;i++)
+			display1D(arr[i]);
+		System.out.println();
+	}
+}
+
+9. BogoSort Sort Algorithm.
+public class BogoSort 
+{
+	public static void main(String[] args)
+	{
+		//Enter array to be sorted here
+		int[] arr={4,5,6,0,7,8,9,1,2,3};
+ 
+		BogoSort now=new BogoSort();
+		System.out.print("Unsorted: ");
+		now.display1D(arr);
+ 
+		now.bogo(arr);
+ 
+		System.out.print("Sorted: ");
+		now.display1D(arr);
+	}
+	void bogo(int[] arr)
+	{
+		//Keep a track of the number of shuffles
+		int shuffle=1;
+		for(;!isSorted(arr);shuffle++)
+			shuffle(arr);
+		//Boast
+		System.out.println("This took "+shuffle+" shuffles.");
+	}
+	void shuffle(int[] arr)
+	{
+		//Standard Fisher-Yates shuffle algorithm
+		int i=arr.length-1;
+		while(i>0)
+			swap(arr,i--,(int)(Math.random()*i));
+	}
+	void swap(int[] arr,int i,int j)
+	{
+		int temp=arr[i];
+		arr[i]=arr[j];
+		arr[j]=temp;
+	}
+	boolean isSorted(int[] arr)
+	{
+ 
+		for(int i=1;i<arr.length;i++)
+			if(arr[i]<arr[i-1])
+				return false;
+		return true;
+	}
+	void display1D(int[] arr)
+	{
+		for(int i=0;i<arr.length;i++)
+			System.out.print(arr[i]+" ");
+		System.out.println();
+	} 
+}
+
+10. Cocktail sort algorithm.
+import java.util.Arrays;
+class cocktailSort
+{
+    void cocktailSort(int nums[])
+    {
+	  boolean swapped;
+	  do {
+		swapped = false;
+		for (int i =0; i<=  nums.length  - 2;i++) {
+			if (nums[ i ] > nums[ i + 1 ]) {
+				//test if two elements are in the wrong order
+				int temp = nums[i];
+				nums[i] = nums[i+1];
+				nums[i+1]=temp;
+				swapped = true;
+			}
+		}
+		if (!swapped) {
+			break;
+		}
+		swapped = false;
+		for (int i= nums.length - 2;i>=0;i--) {
+			if (nums[ i ] > nums[ i + 1 ]) {
+				int temp = nums[i];
+				nums[i] = nums[i+1];
+				nums[i+1]=temp;
+				swapped = true;
+			}
+		}
+	} while (swapped);
+}
+    // Method to test above
+    public static void main(String args[])
+    {
+        cocktailSort ob = new cocktailSort();
+        int nums[] = {7, 5, 3, 2, 1, 12, 45};
+        System.out.println("Original Array:");
+        System.out.println(Arrays.toString(nums));
+        ob.cocktailSort(nums);
+        System.out.println("Sorted Array");
+        System.out.println(Arrays.toString(nums));
+    }
+}
+
+11. CombSort algorithm.
+import java.util.Arrays;
+class CombSort {
+        void CombSort(int nums[]){
+        int gap_length = nums.length;
+        float shrinkFactor = 1.3f;
+        boolean swapped = false;
+
+        while (gap_length > 1 || swapped) {
+            if (gap_length > 1) {
+                gap_length = (int)(gap_length / shrinkFactor);
+            }
+
+            swapped = false;
+
+            for (int i = 0; gap_length + i < nums.length; i++) {
+                if (nums[i] > nums[i + gap_length]) {
+                    swap(nums, i, i + gap_length);
+                    swapped = true;
+                }
+            }
+        }
+    }
+     private static void swap(int nums[], int x, int y) {
+        Integer temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+    // Method to test above
+    public static void main(String args[])
+    {
+        CombSort ob = new CombSort();
+        int nums[] = {7, -5, 3, 2, 1, 0, 45};
+        System.out.println("Original Array:");
+        System.out.println(Arrays.toString(nums));
+        ob.CombSort(nums);
+        System.out.println("Sorted Array");
+        System.out.println(Arrays.toString(nums));
+    }
+}
+
+12. CountingSort algorithm.
+import java.util.Arrays;
+class countingSort {
+    void countingSort(int[] nums, int min, int max){
+	  int[] ctr = new int[max - min + 1];
+	  for(int number : nums){
+		ctr[number - min]++;
+    	}
+	  int z= 0;
+	  for(int i= min;i <= max;i++){
+		 while(ctr[i - min] > 0){
+		 	nums[z]= i;
+		 	z++;
+			ctr[i - min]--;
+		   }
+	   }
+  }
+  
+    // Method to test above
+    public static void main(String args[])
+    {
+        countingSort ob = new countingSort();
+        int nums[] = {7, -5, 3, 2, 1, 0, 45};
+        int minValue = -5, maxValue = 45;
+        System.out.println("Original Array:");
+        System.out.println(Arrays.toString(nums));
+        ob.countingSort(nums,minValue,maxValue);
+        System.out.println("Sorted Array");
+        System.out.println(Arrays.toString(nums));
+    }
+}
+
+13. Pancake sort algorithm.
+import java.util.Arrays;  
+
+public class PancakeSort
+{
+   int[] heap;
+ 
+   public String toString() {
+      String info = "";
+      for (int x: heap)
+         info += x + " ";
+      return info;
+   }
+ 
+   public void flip(int n) {
+      for (int i = 0; i < (n+1) / 2; ++i) {
+         int tmp = heap[i];
+         heap[i] = heap[n-i];
+         heap[n-i] = tmp;
+      }      
+     // System.out.println("flip(0.." + n + "): " + toString());
+   }
+ 
+   public int[] minmax(int n) {
+      int xm, xM;
+      xm = xM = heap[0];
+      int posm = 0, posM = 0;
+ 
+      for (int i = 1; i < n; ++i) {
+         if (heap[i] < xm) {
+            xm = heap[i];
+            posm = i;
+         }
+         else if (heap[i] > xM) {
+            xM = heap[i];
+            posM = i;
+         }
+      }
+      return new int[] {posm, posM};
+   }
+ 
+   public void sort(int n, int dir) {
+      if (n == 0) return;
+ 
+      int[] mM = minmax(n);
+      int bestXPos = mM[dir];
+      int altXPos = mM[1-dir];
+      boolean flipped = false;
+ 
+      if (bestXPos == n-1) {
+         --n;
+      }
+      else if (bestXPos == 0) {
+         flip(n-1);
+         --n;
+      }
+      else if (altXPos == n-1) {
+         dir = 1-dir;
+         --n;
+         flipped = true;
+      }
+      else {
+         flip(bestXPos);      }
+      sort(n, dir);
+ 
+      if (flipped) {
+         flip(n);
+      }
+   }
+ 
+   PancakeSort(int[] numbers) {
+      heap = numbers;
+      sort(numbers.length, 1);
+   } 
+ 
+   public static void main(String[] args) {
+      int numbers[] = {7, -5, 3, 2, 1, 0, 45};
+      System.out.println("Original Array:");
+      System.out.println(Arrays.toString(numbers));
+      PancakeSort pancakes = new PancakeSort(numbers);
+      System.out.println("Sorted Array:");
+      System.out.println(Arrays.toString(numbers));
+   }
+}
+

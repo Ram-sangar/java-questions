@@ -1,0 +1,70 @@
+if satetments answer
+
+public class NumberOperations {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 1. Find maximum between two numbers
+	int num1 = 232364;
+	int num2 = 37419874;
+        if(num1 >num2){
+		System.out.println("Num1 is greater than num2");
+	}e if (num1<num2){
+		System.out.println("Num1 is greater than num1");
+	} else{
+		System.out.println("Num1 is equal to num2");
+	}
+
+        // 2. Check if a number is positive or negative
+        int checkNumber =141;
+        if (checkNumber > 0) {
+            System.out.println(checkNumber + " is a positive number.");
+        } else if (checkNumber < 0) {
+            System.out.println(checkNumber + " is a negative number.");
+        } else {
+            System.out.println(checkNumber + " is zero.");
+        }
+
+        // 3. Check if a number is even or odd
+        int evenOddNumber = 237878;
+        if (evenOddNumber % 2 == 0) {
+            System.out.println(evenOddNumber + " is an even number.");
+        } else {
+            System.out.println(evenOddNumber + " is an odd number.");
+        }
+
+        // 4. Check the range of a number
+        int rangeNumber = 21761;
+        if (rangeNumber >= 1 && rangeNumber <= 100) {
+            System.out.println(rangeNumber + " is in the range of 1 to 100.");
+        } else {
+            System.out.println(rangeNumber + " is outside the range of 1 to 100.");
+        }
+
+        // 5. Check whether a number is divisible by 5 and 11 or not
+        int divisibleNumber = 55;
+        if (divisibleNumber % 5 == 0 && divisibleNumber % 11 == 0) {
+            System.out.println(divisibleNumber + " is divisible by both 5 and 11.");
+        } else {
+            System.out.println(divisibleNumber + " is not divisible by both 5 and 11.");
+        }
+
+        // 6. Check whether a year is a leap year or not
+        int leapYear = 1995;
+        if ((leapYear % 4 == 0 && leapYear % 100 != 0) || (leapYear % 400 == 0)) {
+            System.out.println(leapYear + " is a leap year.");
+        } else {
+            System.out.println(leapYear + " is not a leap year.");
+        }
+
+        // 7. Check whether a character is an alphabet or not
+        char checkChar = 'v';
+        if ((checkChar >= 'a' && checkChar <= 'z') || (checkChar >= 'A' && checkChar <= 'Z')) {
+            System.out.println(checkChar + " is an alphabet.");
+        } else {
+            System.out.println(checkChar + " is not an alphabet.");
+        }
+
+        scanner.close();
+    }
+}
